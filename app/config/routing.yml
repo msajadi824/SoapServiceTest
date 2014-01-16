@@ -1,0 +1,4 @@
+soap_test:
+    resource: "@SoapTestBundle/Resources/config/routing.yml"
+    prefix:   /
+
