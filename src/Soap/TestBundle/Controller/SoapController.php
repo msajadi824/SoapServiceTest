@@ -32,11 +32,11 @@ class SoapController extends Controller {
         }
     }
 
-    public function getAction()
+    public function getAction($id)
     {
         $client = new \SoapClient("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
 
-        $result = $client->__call ('FindNameById', array(new FindNameByIdRequest(1)));
+        $result = $client->__call ('FindNameById', array(new FindNameByIdRequest($id)));
         $response = new FindNameByIdResponse();
         $this->get("soap_test_bundle.globals")->CopyObject($result,$response);
         return new Response(str_replace(array("\n"," "),array("<br/>","&nbsp;"),print_r($response,true)));

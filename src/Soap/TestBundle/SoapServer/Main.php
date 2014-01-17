@@ -47,6 +47,16 @@ class Main {
         $FindNameByIdRequest = new FindNameByIdRequest();
         $this->globals->CopyObject($input,$FindNameByIdRequest);
 
+        if(!$FindNameByIdRequest->id || $FindNameByIdRequest->id == "" || !is_numeric($FindNameByIdRequest->id) || $FindNameByIdRequest->id < 1)
+            return new FindNameByIdResponse("--");
+
+        $FindNameByIdRequest->id = intval($FindNameByIdRequest->id);
+
+        $row = $this->em->getRepository("SoapTestBundle:Name")->find($FindNameByIdRequest->id);
+
+        if(!$row)
+            return new FindNameByIdResponse("-Id not found.-");
+
 //        //get user Agency
 //        $userAgency = $this->getUserAgency($ReserveInfoRequest->agency_info);
 //        if(!$userAgency)
@@ -55,7 +65,7 @@ class Main {
 //        if(!$userAgency->hasRole("ROLE_AGENCY") || !$userAgency->getAgencyEntity())
 //            return new ReserveInfoResponse("User is not Agency");
 
-        return new FindNameByIdResponse("mostafa");
+        return new FindNameByIdResponse($row->getName());
     }
 
 //    /**

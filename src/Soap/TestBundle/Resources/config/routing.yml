@@ -3,5 +3,5 @@ soap_test_server:
     defaults: { _controller: SoapTestBundle:Soap:index }
 
 soap_test_test:
-    pattern:  /test
+    pattern:  /test/{id}/
     defaults: { _controller: SoapTestBundle:Soap:get }
