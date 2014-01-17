@@ -1,7 +1,11 @@
+soap_test_index:
+    pattern:  /
+    defaults: { _controller: SoapTestBundle:Default:index }
+
 soap_test_server:
     pattern:  /soap
     defaults: { _controller: SoapTestBundle:Soap:index }
 
 soap_test_test:
-    pattern:  /test/{id}/
-    defaults: { _controller: SoapTestBundle:Soap:get }
+    pattern:  /soap/test/{id}/{length}/
+    defaults: { _controller: SoapTestBundle:Soap:get, id: 1, length:0 }

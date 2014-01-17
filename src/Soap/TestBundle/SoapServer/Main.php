@@ -49,8 +49,12 @@ class Main {
 
         if(!$FindNameByIdRequest->id || $FindNameByIdRequest->id == "" || !is_numeric($FindNameByIdRequest->id) || $FindNameByIdRequest->id < 1)
             return new FindNameByIdResponse("--");
-
         $FindNameByIdRequest->id = intval($FindNameByIdRequest->id);
+
+        if(!is_numeric($FindNameByIdRequest->length) || $FindNameByIdRequest->length < 0)
+            return new FindNameByIdResponse("--");
+        $FindNameByIdRequest->length = intval($FindNameByIdRequest->length);
+        sleep($FindNameByIdRequest->length);
 
         $row = $this->em->getRepository("SoapTestBundle:Name")->find($FindNameByIdRequest->id);
 

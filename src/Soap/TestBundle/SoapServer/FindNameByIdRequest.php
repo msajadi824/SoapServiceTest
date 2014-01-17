@@ -13,11 +13,18 @@ class FindNameByIdRequest
     public $id;
 
     /**
-     * @param int $_id
+     * @var string
      */
-    public function __construct($_id = NULL)
+    public $length;
+
+    /**
+     * @param int $_id
+     * @param null $_length
+     */
+    public function __construct($_id = NULL, $_length = NULL)
     {
         $this->id=$_id;
+        $this->length=$_length;
     }
 
     /**

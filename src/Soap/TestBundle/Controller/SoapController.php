@@ -5,6 +5,7 @@ namespace Soap\TestBundle\Controller;
 use Soap\TestBundle\SoapServer\FindNameByIdRequest;
 use Soap\TestBundle\SoapServer\FindNameByIdResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SoapController extends Controller {
@@ -32,13 +33,19 @@ class SoapController extends Controller {
         }
     }
 
-    public function getAction($id)
+    public function getAction(Request $request,$id,$length)
     {
+        $id = $request->get("id",$id);
+        $length = $request->get("length",$length);
+        $start = microtime(true);
+
         $client = new \SoapClient("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
 
-        $result = $client->__call ('FindNameById', array(new FindNameByIdRequest($id)));
+        $result = $client->__call ('FindNameById', array(new FindNameByIdRequest($id,$length)));
+        $end = microtime(true);
         $response = new FindNameByIdResponse();
         $this->get("soap_test_bundle.globals")->CopyObject($result,$response);
-        return new Response(str_replace(array("\n"," "),array("<br/>","&nbsp;"),print_r($response,true)));
+        $mylength = round($end - $start,3);
+        return new Response("server side time length: ".$mylength." sec<hr/> result: ".$response->name);
     }
 }

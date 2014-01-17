@@ -1,1 +1,66 @@
-Hello {{ name }}!
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="{{ asset("bundles/jquery-1.10.2.min.js") }}"></script>
+    <script>
+        var i = 0;
+        var myVar;
+        function startTimer()
+        {
+            $("#timer").html(i=0);
+            clearInterval(myVar);
+            myVar=setInterval(function(){tickTimer()},1000);
+        }
+        function tickTimer()
+        {
+            $("#timer").html(++i);
+        }
+        function stopTimer()
+        {
+            clearInterval(myVar);
+        }
+        var start,end;
+
+        function runTest()
+        {
+            var id = $("#id").val();
+            var length = $("#length").val();
+            startTimer();
+            start = new Date();
+            $.ajax({
+                type: "get",
+                url: "{{ path("soap_test_test") }}",
+                data: {"id":id,"length":length},
+                cache: false,
+                success: function (result) {
+                    end = new Date();
+                    stopTimer();
+                    $("#result").html(result);
+                    $("#timer").html("client side time length: "+(end-start)/1000 + " sec");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div>
+
+</div>
+<table>
+    <tr>
+        <td><label for="id">id:</label></td>
+        <td><input type="number" id="id" value="1"></td>
+    </tr>
+    <tr>
+        <td><label for="length">time length:</label></td>
+        <td><input type="number" id="length" value="0"></td>
+    </tr>
+</table>
+<input type="button" value="Run" onclick="runTest()"/><br/>
+<hr/>
+<div id="timer">0</div>
+<hr/>
+<div id="result">empty</div>
+</body>
+</html>
