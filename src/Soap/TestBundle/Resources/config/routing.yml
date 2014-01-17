@@ -1,3 +1,7 @@
-soap_test_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: SoapTestBundle:Default:index }
+soap_test_server:
+    pattern:  /soap
+    defaults: { _controller: SoapTestBundle:Soap:index }
+
+soap_test_test:
+    pattern:  /test
+    defaults: { _controller: SoapTestBundle:Soap:get }
