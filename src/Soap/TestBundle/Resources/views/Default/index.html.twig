@@ -26,12 +26,13 @@
         {
             var id = $("#id").val();
             var length = $("#length").val();
+            var timeOut = $("#timeOut").val();
             startTimer();
             start = new Date();
             $.ajax({
                 type: "get",
                 url: "{{ path("soap_test_test") }}",
-                data: {"id":id,"length":length},
+                data: {"id":id,"length":length,"timeOut":timeOut},
                 cache: false,
                 success: function (result) {
                     end = new Date();
@@ -54,7 +55,11 @@
     </tr>
     <tr>
         <td><label for="length">time length:</label></td>
-        <td><input type="number" id="length" value="0"></td>
+        <td><input type="number" id="length" value="0"> sec</td>
+    </tr>
+    <tr>
+        <td><label for="timeOut">timeOut:</label></td>
+        <td><input type="number" id="timeOut" value="20"> sec</td>
     </tr>
 </table>
 <input type="button" value="Run" onclick="runTest()"/><br/>

@@ -34,17 +34,18 @@ class SoapController extends Controller {
         }
     }
 
-    public function getAction(Request $request,$id,$length)
+    public function getAction(Request $request,$id,$length,$timeOut)
     {
         try
         {
             $id = $request->get("id",$id);
             $length = $request->get("length",$length);
+            $timeOut = intval($request->get("timeOut",$timeOut));
             $start = microtime(true);
 
     //        $client = new \SoapClient("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
             $client = new SoapClientTimeout("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
-            $client->__setTimeout(5);
+            $client->__setTimeout($timeOut);
 
             $result = $client->__call ('FindNameById', array(new FindNameByIdRequest($id,$length)));
             $end = microtime(true);

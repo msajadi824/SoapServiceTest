@@ -7,5 +7,5 @@ soap_test_server:
     defaults: { _controller: SoapTestBundle:Soap:index }
 
 soap_test_test:
-    pattern:  /soap/test/{id}/{length}/
-    defaults: { _controller: SoapTestBundle:Soap:get, id: 1, length:0 }
+    pattern:  /soap/test/{id}/{length}/{timeOut}/
+    defaults: { _controller: SoapTestBundle:Soap:get, id: 1, length: 0, timeOut: 20 }
