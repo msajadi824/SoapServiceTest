@@ -1,5 +1,4 @@
 <?php
-
 namespace Soap\TestBundle\Controller;
 
 use Soap\TestBundle\Services\SoapClientTimeout;
