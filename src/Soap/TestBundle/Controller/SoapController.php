@@ -2,6 +2,7 @@
 
 namespace Soap\TestBundle\Controller;
 
+use Soap\TestBundle\Services\SoapClientTimeout;
 use Soap\TestBundle\SoapServer\FindNameByIdRequest;
 use Soap\TestBundle\SoapServer\FindNameByIdResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -35,17 +36,26 @@ class SoapController extends Controller {
 
     public function getAction(Request $request,$id,$length)
     {
-        $id = $request->get("id",$id);
-        $length = $request->get("length",$length);
-        $start = microtime(true);
+        try
+        {
+            $id = $request->get("id",$id);
+            $length = $request->get("length",$length);
+            $start = microtime(true);
 
-        $client = new \SoapClient("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
+    //        $client = new \SoapClient("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
+            $client = new SoapClientTimeout("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
+            $client->__setTimeout(5);
 
-        $result = $client->__call ('FindNameById', array(new FindNameByIdRequest($id,$length)));
-        $end = microtime(true);
-        $response = new FindNameByIdResponse();
-        $this->get("soap_test_bundle.globals")->CopyObject($result,$response);
-        $mylength = round($end - $start,3);
-        return new Response("server side time length: ".$mylength." sec<hr/> result: ".$response->name);
+            $result = $client->__call ('FindNameById', array(new FindNameByIdRequest($id,$length)));
+            $end = microtime(true);
+            $response = new FindNameByIdResponse();
+            $this->get("soap_test_bundle.globals")->CopyObject($result,$response);
+            $mylength = round($end - $start,3);
+            return new Response("server side time length: ".$mylength." sec<hr/> result: ".$response->name);
+        }
+        catch(\Exception $e)
+        {
+            return new Response("Error: ".$e->getMessage());
+        }
     }
 }
