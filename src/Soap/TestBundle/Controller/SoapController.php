@@ -43,7 +43,7 @@ class SoapController extends Controller {
             $start = microtime(true);
 
     //        $client = new \SoapClient("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
-            $client = new SoapClientTimeout("http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl");
+            $client = new SoapClientTimeout("http://89.165.5.240/soaptest/soap?wsdl");
             $client->__setTimeout($timeOut);
 
             $result = $client->__call ('FindNameById', array(new FindNameByIdRequest($id,$length)));
