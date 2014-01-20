@@ -46,7 +46,8 @@
 	</wsdl:binding>
 	<wsdl:service name="NewService">
 		<wsdl:port name="NewPort" binding="tns:NewBinding">
-			<soap:address location="http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl"/>
+			<soap:address location="http://89.165.5.240/soaptest/soap?wsdl"/>
+            <!--<soap:address location="http://localhost/SoapServiceTest/web/app_dev.php/soap?wsdl"/>-->
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
