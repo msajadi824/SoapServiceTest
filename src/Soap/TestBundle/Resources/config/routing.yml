@@ -2,6 +2,10 @@ soap_test_index:
     pattern:  /
     defaults: { _controller: SoapTestBundle:Default:index }
 
+soap_test_get_name_by_id:
+    pattern:  /get_name/{id}/
+    defaults: { _controller: SoapTestBundle:Default:index }
+
 soap_test_server:
     pattern:  /soap
     defaults: { _controller: SoapTestBundle:Soap:index }
