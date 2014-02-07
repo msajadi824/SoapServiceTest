@@ -11,8 +11,8 @@ class DefaultController extends Controller {
         return $this->render("SoapTestBundle:Default:index.html.twig");
     }
 
-    public function getNameByIdAction()
+    public function getNameByIdAction($id,$_controller)
     {
-        return new Response('aa');
+        return new Response('aa'.$id."--".$_controller);
     }
 } 
